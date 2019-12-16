@@ -40,7 +40,7 @@ class Perceptron
     end
 
     def calculate_total_input(pattern)
-        num_entries = pattern.length - 1
+        num_entries = pattern.length - 2
         a = (0..num_entries).inject(0) do |a, entry|
             a + (pattern[entry] * @weights[entry])
         end
@@ -50,7 +50,7 @@ class Perceptron
     def change_weights(d, y, pattern)
         error = d - y
         if error != 0
-            num_entries = pattern.length - 1
+            num_entries = pattern.length - 2
             calculate_weights(num_entries, error, pattern)
             calculate_umbral(error)
             @learning = true
