@@ -22,11 +22,20 @@ class Perceptron
     end
 
     def view_net
-        
+        @data.each do |pattern|
+            a = calculate_total_input(pattern)
+            y = activation_function(a)
+            d = get_d(pattern)
+            p "#{pattern[0]} : #{pattern[1]} = #{d} PERCEPTRON: #{y}"
+        end
     end
 
     def info
-        
+        p "Iterations: #{@iterations}"
+        p "Weigth [0]: #{@weights[0]}"
+        p "Weight [1]: #{@weights[1]}"
+        p "Umbral: #{@umbral}"
+        p "Data: #{@data}"
     end
 
     private
@@ -64,7 +73,7 @@ class Perceptron
     end
 
     def calculate_umbral(error)
-        @umbral = @umbral + rate * error * 1
+        @umbral = @umbral + @rate * error * 1
     end
 
     def get_d(pattern)
