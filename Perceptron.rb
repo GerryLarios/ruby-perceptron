@@ -1,7 +1,7 @@
 class Perceptron
     def initialize(data, **options)
         @data = data
-        @umbral = get_attr(options, "umbral")
+        @threshold = get_attr(options, "threshold")
         @rate = get_attr(options, "rate")
         @weights = get_attr(options, "weights", [rand(), rand()])
         @learning = true
@@ -34,7 +34,7 @@ class Perceptron
         p "Iterations: #{@iterations}"
         p "Weigth [0]: #{@weights[0]}"
         p "Weight [1]: #{@weights[1]}"
-        p "Umbral: #{@umbral}"
+        p "Threshold: #{@threshold}"
         p "Data: #{@data}"
     end
 
@@ -53,7 +53,7 @@ class Perceptron
         a = (0..num_entries).inject(0) do |a, entry|
             a + (pattern[entry] * @weights[entry])
         end
-        @umbral + a
+        @threshold + a
     end
 
     def change_weights(d, y, pattern)
@@ -61,7 +61,7 @@ class Perceptron
         if error != 0
             num_entries = pattern.length - 2
             calculate_weights(num_entries, error, pattern)
-            calculate_umbral(error)
+            calculate_threshold(error)
             @learning = true
         end
     end
@@ -72,8 +72,8 @@ class Perceptron
         end
     end
 
-    def calculate_umbral(error)
-        @umbral = @umbral + @rate * error * 1
+    def calculate_threshold(error)
+        @threshold = @threshold + @rate * error * 1
     end
 
     def get_d(pattern)
